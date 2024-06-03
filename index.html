@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>app-mama</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style/app-mama-style.css">
+    
+</head>
+<body >
+   <div class="contenedor-principal">
+      <h2 class="title font-bold tracking-wide ">Calculador de servicios hogar</h2>
+      <select id="selectRecibos" class="select select-bordered w-full max-w-xs m-2">
+         <option disabled selected>Selecciona el servicio a calcular</option>
+         <option value="agua">Agua</option>
+         <option value="luz">luz</option>
+         <option value="gas">Gas</option>
+      </select>
+
+      <div class="grid grid-cols-2 ms-4"> <!-- div para ingresar valor y dias de la factura -->
+         <label for="total_bill" class="col-span-2 ">Valor de la factura $
+            <input type="number" class="input-factura" id="total_bill" placeholder="152.250">
+         </label>
+         <label for="days_bill" class="col-span-2 ">Dias facturados
+            <input type="number" class="input-factura" id="days_bill" placeholder="30">
+         </label>
+      </div>
+
+      <button id="calcular" class="btn btn-outline ms-4" onclick="bill()">calcular</button>
+      <button id="modificar" class="btn btn-outline ms-4" onclick="modificar()">Modificar</button>
+
+      <div class="flex"><!-- acordeon con informacion de lso apartamentos -->
+         <span id="total_diario" class="sm:w-full lg:w-1/2"></span>
+      </div>
+   </div>
+
+      <script src="./script/app-class.js"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
+<!--       <script src="./script/app-mama.js"></script> -->
+
+   </body>
+</html>
