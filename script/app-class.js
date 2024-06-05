@@ -21,7 +21,7 @@ let lucy = new Inquilino ('Lucy',days_bill);
 let augus = new Inquilino ('Augus',days_bill)
 let apto301 = new Apto ( 301);
 apto301.inquilino.push(lucy, augus);
-aptos.push(apto301);
+aptos.push(apto301)
 console.log(aptos);
 
 
