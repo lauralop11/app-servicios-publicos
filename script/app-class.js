@@ -1,6 +1,8 @@
 const textInfo = document.getElementById('total_diario');
 let days_bill ;
 let total_bill;
+let aptos=[];
+
 class Apto {
   constructor (num,diasApto,facturaApto,inquilino){
     this.numApto = num;
@@ -19,7 +21,8 @@ let lucy = new Inquilino ('Lucy',days_bill);
 let augus = new Inquilino ('Augus',days_bill)
 let apto301 = new Apto ( 301);
 apto301.inquilino.push(lucy, augus);
-console.log(apto301);
+aptos.push(apto301);
+console.log(aptos);
 
 
 function bill(){
