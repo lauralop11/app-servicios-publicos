@@ -118,8 +118,23 @@ function init() {
 recibo.addEventListener('change',init);
 
 function bill(){
+
   total_bill = Number(document.querySelector('#total_bill').value);
   days_bill = Number(document.querySelector('#days_bill').value);
+
+//validacion que los inputs esten con valores
+if (total_bill == 0 && days_bill == 0){
+  
+  document.querySelector('#total_bill').focus();
+  document.querySelector('#days_bill').focus();
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Olvidaste ingresar el valor del recibo y los dias de la factura",
+  });
+  return;
+}
+
   aptos.forEach((apto,i) => { //poner los dias de la factura en el valor dle input
     if (i > 0 || recibo.value == 'agua'){
       apto.inquilinos.forEach((inquilino) => {
