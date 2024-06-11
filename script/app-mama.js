@@ -1,5 +1,5 @@
 let total_bill;
-let days_bill = document.getElementById('days_bill');
+let days_bill ;
 let recibo = document.getElementById('selectRecibos');
 let value_bill_day;
 let total_diaria_inquilino;
@@ -87,7 +87,7 @@ function init() {
     titleAcordeon.classList.add('collapse-title', 'text-xl', 'font-medium');
     titleAcordeon.innerText =  `Informacion ${aptos[i].apto}`;
 
-    avatarAcordeon.setAttribute('src','../img/house.png');
+    avatarAcordeon.setAttribute('src','./img/house.png');
 
     contenedorInfo.classList.add( 'collapse-content');
     contenedorInfo.setAttribute ('id',`${aptos[i].apto}` )
@@ -116,6 +116,19 @@ function init() {
 }
 }
 recibo.addEventListener('change',init);
+
+function getvalue(event){
+  
+  
+    let moneda = (new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP'}).format(
+      event.target.value,
+    ))
+
+      console.log(moneda)
+    document.getElementById('total_bill').value = moneda;
+
+
+}
 
 function bill(){
   total_bill = Number(document.querySelector('#total_bill').value);
@@ -170,11 +183,14 @@ function calcular (totalFact) {
       let infoDiasApto = document.createElement('p');
       infoDiasApto.classList.add('p-valor-fact');
       let divApto = document.getElementById(`${apto.apto}`);
-      infoDiasApto.innerText = `El apartamento ${apto.apto} debe pagar $${apto.total_factura_apto} por el recibo de este mes.`;
+      let monedaFact = (new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(
+        apto.total_factura_apto,
+      ))
+      infoDiasApto.innerText = `El apartamento ${apto.apto} debe pagar ${monedaFact} por el recibo de este mes.`;
       divApto.appendChild(infoDiasApto);
       }
     
-
+      
   })
     
 }
