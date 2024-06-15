@@ -9,7 +9,7 @@ const textinfo = document.getElementById('total_diario');
 let acordeon;
 let titleAcordeon;
 let contenedorInfo;
-
+//Informacion inquilinos {array}
 const aptos = [
     {
     apto: 101,
@@ -61,7 +61,7 @@ const aptos = [
   },
 ];
 
-// funcion para mostrar informacion por apartamento
+// funcion para mostrar en html informacion por apartamento
 function init() {
   textinfo.innerHTML = " ";
   let i;
@@ -79,6 +79,9 @@ function init() {
     titleAcordeon = document.createElement('div'); // collapse-title
     avatarAcordeon = document.createElement('img');
     contenedorInfo = document.createElement('div'); // collapse-content
+    let divInfoInquilino = document.createElement('div');
+    
+    
 
     acordeon.classList.add ('collapse', 'collapse-arrow', 'bg-base-200', 'my-3');
     inputcheck.setAttribute('type', 'radio');
@@ -92,6 +95,8 @@ function init() {
     contenedorInfo.classList.add( 'collapse-content');
     contenedorInfo.setAttribute ('id',`${aptos[i].apto}` )
 
+    divInfoInquilino.classList.add('div-info-inquilino');
+
     titleAcordeon.appendChild(avatarAcordeon);
     acordeon.appendChild(inputcheck);
     acordeon.appendChild(titleAcordeon);  
@@ -100,23 +105,28 @@ function init() {
 
     const infoInq = document.createElement('p');
     inputInq = document.createElement('input');
-    infoInq.classList.add(`text-${y}`);
+    
+
+    infoInq.classList.add(`text-info-user`);
     inputInq.setAttribute('id', `${aptos[i].inquilinos[y].nom}`);
     inputInq.setAttribute('type', 'number');
     inputInq.setAttribute('min', '0');
     inputInq.classList.add('input-dias', 'w-14', 'm-2', 'border-2','input-bordered', 'rounded');
+    divInfoInquilino.classList.add('div-info-inquilino');
 
     infoInq.innerText = `${aptos[i].inquilinos[y].nom} dias a facturar`;
 
+
     infoInq.appendChild(inputInq);
-    contenedorInfo.appendChild(infoInq);
+    divInfoInquilino.appendChild(infoInq)
+    contenedorInfo.appendChild(divInfoInquilino);
     acordeon.appendChild(contenedorInfo);
     } 
     textinfo.appendChild(acordeon);
 }
 }
 recibo.addEventListener('change',init);
-
+// funcion de activada por el boton calcular 
 function bill(){
 
   total_bill = Number(document.querySelector('#total_bill').value);
@@ -154,7 +164,7 @@ function calcular (totalFact) {
   })
   //sumatoria de los dias de todos los inquilinos
   let total_days_users = 0;
-
+  // reset datos array apto obejto inquilino
    aptos.forEach((apto) => {
      apto.total_dias_apto =0;
     apto.total_factura_apto = 0;
@@ -164,6 +174,9 @@ function calcular (totalFact) {
     if (i > 0 || recibo.value == 'agua'){
       let infoDiasApto = document.createElement('p');
       infoDiasApto.classList.add('p-valor-fact');
+
+      let divInfoInquilino = document.createElement('div');
+      divInfoInquilino.classList.add ('div-info', `div-info-${apto.apto}`);
    
       apto.inquilinos.forEach((inquilino)=>{ 
         total_days_users += inquilino.days;
@@ -172,7 +185,8 @@ function calcular (totalFact) {
     let divApto = document.getElementById(`${apto.apto}`);
     
     infoDiasApto.innerText = `El apartamento ${apto.apto} tiene ${apto.total_dias_apto} como total de dias de consumo al mes`;
-    divApto.appendChild(infoDiasApto);
+    divInfoInquilino.appendChild(infoDiasApto)
+    divApto.appendChild(divInfoInquilino);
     }
    
   }) 
@@ -196,7 +210,6 @@ function calcular (totalFact) {
   })
     
 }
-
 
  function modificar (){
 
