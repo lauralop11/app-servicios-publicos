@@ -1,5 +1,5 @@
 let total_bill;
-let days_bill = document.getElementById('days_bill');
+let days_bill ;
 let recibo = document.getElementById('selectRecibos');
 let value_bill_day;
 let total_diaria_inquilino;
@@ -90,7 +90,7 @@ function init() {
     titleAcordeon.classList.add('collapse-title', 'text-xl', 'font-medium');
     titleAcordeon.innerText =  `Informacion ${aptos[i].apto}`;
 
-    avatarAcordeon.setAttribute('src','../img/house.png');
+    avatarAcordeon.setAttribute('src','./img/house.png');
 
     contenedorInfo.classList.add( 'collapse-content');
     contenedorInfo.setAttribute ('id',`${aptos[i].apto}` )
@@ -128,8 +128,23 @@ function init() {
 recibo.addEventListener('change',init);
 // funcion de activada por el boton calcular 
 function bill(){
-  total_bill = Number(document.querySelector('#total_bill').value);//valor factura
-  days_bill = Number(document.querySelector('#days_bill').value);//valos dias de la factura
+
+  total_bill = Number(document.querySelector('#total_bill').value);
+  days_bill = Number(document.querySelector('#days_bill').value);
+
+//validacion que los inputs esten con valores
+if (total_bill == 0 && days_bill == 0){
+  
+  document.querySelector('#total_bill').focus();
+  document.querySelector('#days_bill').focus();
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Olvidaste ingresar el valor del recibo y los dias de la factura",
+  });
+  return;
+}
+
   aptos.forEach((apto,i) => { //poner los dias de la factura en el valor dle input
     if (i > 0 || recibo.value == 'agua'){
       apto.inquilinos.forEach((inquilino) => {
@@ -183,15 +198,15 @@ function calcular (totalFact) {
       apto.total_factura_apto = parseInt( total_diaria_inquilino * apto.total_dias_apto)
       let infoDiasApto = document.createElement('p');
       infoDiasApto.classList.add('p-valor-fact');
-      
-      infoDiasApto.innerText = `El apartamento ${apto.apto} debe pagar $${apto.total_factura_apto} por el recibo de este mes.`;
-      
-      let divInfoInquilino = document.querySelector(`.div-info-${apto.apto}`);
-      divInfoInquilino.appendChild(infoDiasApto)
-    
+      let divApto = document.getElementById(`${apto.apto}`);
+      let monedaFact = (new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(
+        apto.total_factura_apto,
+      ))
+      infoDiasApto.innerText = `El apartamento ${apto.apto} debe pagar ${monedaFact} por el recibo de este mes.`;
+      divApto.appendChild(infoDiasApto);
       }
     
-
+      
   })
     
 }

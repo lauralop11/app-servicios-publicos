@@ -20,6 +20,12 @@
  text-align: center;
  color: var(--title-color);
 }
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+  }
 label{
     font-size: var(--contenido-font-size);
     color: #F0C38E;
