@@ -127,16 +127,16 @@ function bill(){
 
   total_bill = Number(document.querySelector('#total_bill').value);
   days_bill = Number(document.querySelector('#days_bill').value);
-
+ console.log ( total_bill, days_bill);
 //validacion que los inputs esten con valores
-if (total_bill == 0 && days_bill == 0){
+if (total_bill == 0 || days_bill == 0 || recibo.value == "no-seleccionado"){
   
   document.querySelector('#total_bill').focus();
   document.querySelector('#days_bill').focus();
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: "Olvidaste ingresar el valor del recibo y los dias de la factura",
+    text: "Olvidaste seleccionar una opcion",
   });
   return;
 }
