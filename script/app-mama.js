@@ -117,19 +117,6 @@ function init() {
 }
 recibo.addEventListener('change',init);
 
-function getvalue(event){
-  
-  
-    let moneda = (new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP'}).format(
-      event.target.value,
-    ))
-
-      console.log(moneda)
-    document.getElementById('total_bill').value = moneda;
-
-
-}
-
 function bill(){
   total_bill = Number(document.querySelector('#total_bill').value);
   days_bill = Number(document.querySelector('#days_bill').value);
