@@ -81,8 +81,6 @@ function init() {
     contenedorInfo = document.createElement('div'); // collapse-content
     let divInfoInquilino = document.createElement('div');
     
-    
-
     acordeon.classList.add ('collapse', 'collapse-arrow', 'bg-base-200', 'my-3');
     inputcheck.setAttribute('type', 'radio');
     inputcheck.setAttribute('name', 'accordion');
@@ -106,7 +104,6 @@ function init() {
     const infoInq = document.createElement('p');
     inputInq = document.createElement('input');
     
-
     infoInq.classList.add(`text-info-user`);
     inputInq.setAttribute('id', `${aptos[i].inquilinos[y].nom}`);
     inputInq.setAttribute('type', 'number');
@@ -116,14 +113,13 @@ function init() {
 
     infoInq.innerText = `${aptos[i].inquilinos[y].nom} dias a facturar`;
 
-
     infoInq.appendChild(inputInq);
     divInfoInquilino.appendChild(infoInq)
     contenedorInfo.appendChild(divInfoInquilino);
     acordeon.appendChild(contenedorInfo);
     } 
     textinfo.appendChild(acordeon);
-}
+  }
 }
 recibo.addEventListener('change',init);
 // funcion de activada por el boton calcular 
@@ -165,8 +161,8 @@ function calcular (totalFact) {
   //sumatoria de los dias de todos los inquilinos
   let total_days_users = 0;
   // reset datos array apto obejto inquilino
-   aptos.forEach((apto) => {
-     apto.total_dias_apto =0;
+  aptos.forEach((apto) => {
+    apto.total_dias_apto =0;
     apto.total_factura_apto = 0;
    })
  
@@ -198,36 +194,30 @@ function calcular (totalFact) {
       apto.total_factura_apto = parseInt( total_diaria_inquilino * apto.total_dias_apto)
       let infoDiasApto = document.createElement('p');
       infoDiasApto.classList.add('p-valor-fact');
-      let divApto = document.getElementById(`${apto.apto}`);
+     
       let monedaFact = (new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0}).format(
         apto.total_factura_apto,
       ))
       infoDiasApto.innerText = `El apartamento ${apto.apto} debe pagar ${monedaFact} por el recibo de este mes.`;
-      divApto.appendChild(infoDiasApto);
-      }
-    
-      
-  })
-    
+      let divInfoInquilino = document.querySelector(`.div-info-${apto.apto}`);
+      divInfoInquilino.appendChild(infoDiasApto);
+      } 
+  })   
 }
 
  function modificar (){
 
-  aptos.forEach((apto,i) => { //poner los dias de la factura en el valor dle input
+  aptos.forEach((apto,i) => { //poner los dias de la factura en el valor del input
     if (i > 0 || recibo.value == 'agua'){
       apto.inquilinos.forEach((inquilino) =>{
       const inputValue = document.querySelector(`#${inquilino.nom}`).value;
       inquilino.days = Number(inputValue);
     })
     }
-    
   })
-
   calcular(total_bill);
  
  } 
 
-
-//inquilinos.push({nom:'Pablo', days:31, apto:102});//agregar un nuevo inquilino
 
 
